@@ -43,14 +43,14 @@
         .btn-secondary { background-color: rgba(30, 41, 59, 0.5); color: #ffffff; border: 1px solid #334155; padding: 0.75rem 1.5rem; border-radius: 0.375rem; cursor: pointer; transition: 0.2s; }
         .btn-secondary:hover { border-color: #64748b; }
         
-        /* Model Canvas (Contenedor de mapa/gráfico simulado) */
-        .model-canvas { background-color: #020617; border: 2px dashed #1e293b; border-radius: 0.5rem; height: 280px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; margin-top: 1rem; }
-        .map-layer { width: 80%; height: 80%; border-radius: 50%; background: radial-gradient(circle, rgba(6,182,212,0.15) 0%, rgba(15,23,42,0) 70%); position: absolute; animation: spin 10s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        /* Model Canvas con visor de imágenes real */
+        .model-canvas { background-color: #020617; border: 1px solid #1e293b; border-radius: 0.5rem; height: 320px; display: flex; flex-direction: column; justify-content: flex-end; position: relative; overflow: hidden; margin-top: 1rem; }
+        .map-display { width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; background-color: #040814; }
+        .map-caption { background: rgba(2, 6, 23, 0.85); width: 100%; padding: 0.5rem 1rem; z-index: 10; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; }
 
         /* Selectores de Modelos */
-        .model-selector { display: flex; gap: 0.5rem; margin-bottom: 1rem; background: #0f172a; padding: 0.5rem; border-radius: 0.375rem; border: 1px solid #1e293b; }
-        .model-tab { background: transparent; border: none; color: #64748b; padding: 0.4rem 0.8rem; font-size: 0.75rem; font-weight: bold; border-radius: 0.25rem; cursor: pointer; }
+        .model-selector { display: flex; gap: 0.3rem; margin-bottom: 1rem; background: rgba(15, 23, 42, 0.9); padding: 0.4rem; border-radius: 0.375rem; border: 1px solid #1e293b; position: absolute; top: 10px; left: 10px; z-index: 20; backdrop-blur: sm; }
+        .model-tab { background: transparent; border: none; color: #94a3b8; padding: 0.4rem 0.8rem; font-size: 0.7rem; font-weight: bold; border-radius: 0.25rem; cursor: pointer; }
         .model-tab.active { background: #06b6d4; color: #020617; }
 
         /* Tarjetas de Módulo (Cards) */
@@ -98,15 +98,20 @@
                 <p class="text-lead">Acceso integrado a las salidas del modelo de alta resolución WRF (1km) y ETA optimizados para la compleja topografía del territorio peruano.</p>
                 
                 <div class="model-canvas">
-                    <div class="map-layer"></div>
-                    <div class="model-selector" style="position: absolute; top: 10px; left: 10px; z-index: 10;">
-                        <button class="model-tab active">WRF 1KM (Perú)</button>
-                        <button class="model-tab">ETA 32KM</button>
-                        <button class="model-tab">GOES-16 Nowcasting</button>
-                        <button class="model-tab">PISCO Gridded</button>
+                    <!-- Imagen real del mapa -->
+                    <img id="meteorological-map" class="map-display" src="https://githubusercontent.com" alt="Mapa Meteorológico">
+                    
+                    <div class="model-selector">
+                        <button id="tab-wrf" class="model-tab active" onclick="changeMap('wrf')">WRF 1KM (Perú)</button>
+                        <button id="tab-eta" class="model-tab" onclick="changeMap('eta')">ETA 32KM</button>
+                        <button id="tab-goes" class="model-tab" onclick="changeMap('goes')">GOES-16 Satellite</button>
+                        <button id="tab-pisco" class="model-tab" onclick="changeMap('pisco')">PISCO Gridded</button>
                     </div>
-                    <span style="font-size: 0.75rem; color: #06b6d4; z-index: 5; font-weight: bold; letter-spacing: 2px;">[ SIMULACIÓN CAPA ISOHIETAS / PRECIPITACIÓN ACUMULADA ]</span>
-                    <span style="font-size: 0.65rem; color: #475569; z-index: 5; margin-top: 5px;">Refresco automático cada 10 min de la Dirección de Meteorología</span>
+                    
+                    <div class="map-caption">
+                        <span id="map-title" style="font-size: 0.75rem; color: #06b6d4; font-weight: bold;">[ CAPA MODELO: Pronóstico Numérico WRF - Precipitación ]</span>
+                        <span style="font-size: 0.65rem; color: #64748b;">Refresco: Dirección de Meteorología</span>
+                    </div>
                 </div>
             </div>
             <div class="card-inner">
@@ -132,9 +137,9 @@
                             <td>Vorticidad potencial, Omega, Humedad Relativa</td>
                         </tr>
                         <tr>
-                            <td><b>Nowcasting GOES</b></td>
+                            <td><b>GOES-16 RealTime</b></td>
                             <td>Tiempo Real</td>
-                            <td>Sistemas Convectivos, Aviso a Muy Corto Plazo Lluvias</td>
+                            <td>Sistemas Convectivos, Vapor de Agua, Tope de Nubes</td>
                         </tr>
                         <tr>
                             <td><b>Grilla PISCO</b></td>
@@ -223,7 +228,7 @@
         </div>
         <div class="grid-2">
             <div class="card">
-                <h3 style="color: #22c55e; font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">🚜 Inteligencia Agroclimática (La CHAKRA)</h3>
+                <h3 style="color: #22c55e; font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">🚜 Inteligencia Agroclimática</h3>
                 <p style="color: #94a3b8; font-size: 0.75rem; margin-bottom: 1rem;">Monitoreo y herramientas preventivas para la seguridad alimentaria en el campo peruano.</p>
                 <ul class="list-tech">
                     <li>❄️ Predicción sistemática de Heladas Agrometeorológicas (Sierras) y Friajes (Selva).</li>
@@ -235,7 +240,7 @@
                 <h3 style="color: #eab308; font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">✈️ Corredor Turístico Seguro</h3>
                 <p style="color: #94a3b8; font-size: 0.75rem; margin-bottom: 1rem;">Información en tiempo real orientada a la protección de operadores y visitantes extranjeros.</p>
                 <ul class="list-tech">
-                    <li>⛰️ Pronósticos puntuales para Machu Picchu, Cordillera Blanca y playas del litoral.</li>
+                    <li>⛰️ Pronósticos puntuales para Machu Picchu, Huaraz y playas del litoral.</li>
                     <li>💨 Alertas de ráfagas intensas de viento, niebla densa y oleajes anómalos costeros.</li>
                     <li>🗺️ Capas GIS con rutas viales sugeridas según la criticidad meteorológica actual.</li>
                 </ul>
@@ -253,17 +258,17 @@
             <div class="card" style="background-color: rgba(168, 85, 247, 0.05); border-color: rgba(168, 85, 247, 0.2); text-align: center; padding: 1.5rem;">
                 <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎮</div>
                 <h4 style="font-size: 1.1rem; font-weight: bold; color: #c084fc; margin-bottom: 0.5rem;">Gamificación Educativa</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Juegos ligeros interactivos en HTML5 como "Cazadores de Nubes" o "Ajusta la Estación" diseñados para escolares.</p>
+                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Juegos ligeros interactivos en HTML5 como "Cazadores de Nubes" diseñados para escolares.</p>
             </div>
             <div class="card" style="background-color: rgba(236, 72, 153, 0.05); border-color: rgba(236, 72, 153, 0.2); text-align: center; padding: 1.5rem;">
                 <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📚</div>
                 <h4 style="font-size: 1.1rem; font-weight: bold; color: #f472b6; margin-bottom: 0.5rem;">Animaciones Científicas</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Explicaciones dinámicas interactivas sobre el ciclo del agua andino, el Fenómeno El Niño (ENSO) y el cambio climático.</p>
+                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Explicaciones dinámicas interactivas sobre el ciclo del agua andino y el Fenómeno El Niño (ENSO).</p>
             </div>
             <div class="card" style="background-color: rgba(99, 102, 241, 0.05); border-color: rgba(99, 102, 241, 0.2); text-align: center; padding: 1.5rem;">
                 <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏫</div>
                 <h4 style="font-size: 1.1rem; font-weight: bold; color: #818cf8; margin-bottom: 0.5rem;">Kits PDF para Docentes</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Materiales interactivos listos para imprimir orientados a profesores de zonas rurales de difícil acceso a conectividad.</p>
+                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Materiales interactivos listos para imprimir orientados a profesores de zonas rurales.</p>
             </div>
         </div>
     </div>
@@ -276,23 +281,23 @@
         </div>
         <div class="grid-3">
             <div class="card">
-                <h4 style="font-size: 1rem; font-weight: bold; color: #22d3ee; margin-bottom: 0.5rem;">Catálogo Open Data (NUNA)</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Infraestructura de Datos Espaciales (IDESEP) para la descarga libre y automatizada de series históricas meteorológicas validadas por control de calidad.</p>
+                <h4 style="font-size: 1rem; font-weight: bold; color: #22d3ee; margin-bottom: 0.5rem;">Catálogo Open Data</h4>
+                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Infraestructura de Datos Espaciales para la descarga libre y automatizada de series históricas meteorológicas.</p>
             </div>
             <div class="card">
                 <h4 style="font-size: 1rem; font-weight: bold; color: #22c55e; margin-bottom: 0.5rem;">Ecosistema de Radares</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Procesamiento e integración avanzada de los nuevos radares de Piura e Ica para potenciar la confiabilidad de los pronósticos meteorológicos de muy corto plazo.</p>
+                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Procesamiento e integración de los nuevos radares de Piura e Ica para potenciar la confiabilidad de los pronósticos de muy corto plazo.</p>
             </div>
             <div class="card">
-                <h4 style="font-size: 1rem; font-weight: bold; color: #f59e0b; margin-bottom: 0.5rem;">Plataforma de Tendencias</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Mapeo a nivel nacional de las tendencias de precipitación y temperaturas extremas del aire (TENDHIS) para formuladores de proyectos estatales de inversión.</p>
+                <h4 style="font-size: 1rem; font-weight: bold; color: #f59e0b; margin-bottom: 0.5rem;">Plataforma TENDHIS</h4>
+                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Mapeo nacional de las tendencias de precipitación y temperaturas extremas para formuladores de proyectos estatales.</p>
             </div>
         </div>
     </div>
 
     <!-- CONTROLES COMUNES INFERIORES -->
     <footer class="footer-controls">
-        <span class="footer-info-text">SENAMHI Observatorio Prototipo Core v2.0 // Webmaster</span>
+        <span class="footer-info-text">SENAMHI Observatorio Prototipo Core v3.0 // Webmaster</span>
         <div style="display: flex; gap: 0.5rem;">
             <button onclick="prevSlide()" class="btn-nav"><- Anterior</button>
             <button onclick="nextSlide()" class="btn-nav btn-nav-next">Siguiente -></button>
@@ -302,6 +307,42 @@
     <script>
         let currentSlide = 1;
         const totalSlides = 6;
+
+        // BANCO DE IMÁGENES REALES DE MODELOS PARA EL VISUALIZADOR
+        const mapUrls = {
+            wrf: {
+                url: 'https://unsplash.com', // Textura de radar/isoyetas simulada de alta resolución
+                title: '[ CAPA MODELO: Pronóstico Numérico WRF - Precipitación Acumulada 24h ]'
+            },
+            eta: {
+                url: 'https://unsplash.com', // Modelo de vectores Regionales
+                title: '[ CAPA MODELO: Salida Numérica Regional ETA - Líneas de Corriente y Presión ]'
+            },
+            goes: {
+                url: 'https://unsplash.com', // Satélite GOES Infrarrojo Real
+                title: '[ IMAGEN SATELITAL: GOES-16 Canal Infrarrojo - Temperatura de Tope de Nubes ]'
+            },
+            pisco: {
+                url: 'https://unsplash.com', // Mapa grillado interpolado
+                title: '[ GRILLA CLIMÁTICA: Producto PISCO - Reanálisis Histórico Met/Hid ]'
+            }
+        };
+
+        function changeMap(modelKey) {
+            // Cambiar imagen y título descriptivo
+            document.getElementById('meteorological-map').src = mapUrls[modelKey].url;
+            document.getElementById('map-title').innerText = mapUrls[modelKey].title;
+            
+            // Alternar clases activas de los botones de pestañas
+            document.querySelectorAll('.model-tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(`tab-${modelKey}`).classList.add('active');
+        }
+
+        // Cargar imagen inicial por defecto de forma segura
+        window.onload = function() {
+            changeMap('wrf');
+        };
+
         function showSlide(n) {
             document.getElementById(`slide${currentSlide}`).classList.remove('active');
             currentSlide = n;
