@@ -5,58 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Observatorio del Tiempo, Clima y Agua - SENAMHI</title>
     <style>
-        /* CSS NATIVO AUTÓNOMO - RESPONSIVO Y SEGURO */
+        /* CORE CSS NATIVO BLINDADO */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #020617; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; overflow-x: hidden; }
+        body { background-color: #020617; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
         
-        .slide { display: none; padding: 2.5rem; flex-direction: column; justify-content: space-between; flex-grow: 1; min-height: calc(100vh - 60px); }
+        .slide { display: none; padding: 2.5rem; flex-direction: column; justify-content: space-between; flex-grow: 1; height: calc(100vh - 60px); }
         .slide.active { display: flex; }
         
-        /* Fondos y Temas */
         .bg-gradient-hero { background: linear-gradient(135deg, #1e3a8a, #0b1329, #164e63); }
         .bg-dark-slate { background-color: #0b1329; }
         .bg-dark-pure { background-color: #020617; }
 
-        /* Cabecera */
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(6, 182, 212, 0.2); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(6, 182, 212, 0.2); padding-bottom: 1rem; }
         .header-title { font-size: 1.15rem; font-weight: 700; color: #e2e8f0; }
         .tag-presentation { color: #22d3ee; font-weight: bold; letter-spacing: 0.1em; font-size: 0.8rem; text-transform: uppercase; }
         
-        /* Layouts */
         .grid-dashboard { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; margin: auto 0; }
         .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin: auto 0; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: auto 0; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: auto 0; }
 
-        /* Textos */
         .text-gradient { background: linear-gradient(to right, #22d3ee, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .title-huge { font-size: 2.5rem; font-weight: 800; line-height: 1.2; }
         .text-lead { color: #94a3b8; font-size: 1rem; margin-top: 1rem; line-height: 1.5; }
         
-        /* Alertas e Indicadores */
         .badge-alert { background-color: #dc2626; color: white; font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 9999px; font-weight: bold; display: inline-block; margin-bottom: 1rem; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
 
-        /* Botones e Interacciones */
-        .btn-primary { background-color: #06b6d4; color: #020617; font-weight: bold; padding: 0.75rem 1.5rem; border: none; border-radius: 0.375rem; cursor: pointer; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2); transition: 0.2s; }
-        .btn-primary:hover { background-color: #0891b2; }
-        .btn-secondary { background-color: rgba(30, 41, 59, 0.5); color: #ffffff; border: 1px solid #334155; padding: 0.75rem 1.5rem; border-radius: 0.375rem; cursor: pointer; transition: 0.2s; }
-        .btn-secondary:hover { border-color: #64748b; }
+        .btn-primary { background-color: #06b6d4; color: #020617; font-weight: bold; padding: 0.75rem 1.5rem; border: none; border-radius: 0.375rem; cursor: pointer; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2); }
+        .btn-secondary { background-color: rgba(30, 41, 59, 0.5); color: #ffffff; border: 1px solid #334155; padding: 0.75rem 1.5rem; border-radius: 0.375rem; }
         
-        /* Contenedor del Mapa */
-        .model-canvas { background-color: #040814; border: 1px solid #1e293b; border-radius: 0.5rem; height: 340px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; margin-top: 1rem; }
-        .map-vector-container { width: 100%; height: 280px; display: flex; justify-content: center; align-items: center; padding: 10px; }
-        .map-caption { background: rgba(2, 6, 23, 0.9); width: 100%; padding: 0.5rem 1rem; z-index: 10; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; }
+        /* Contenedor del Mapa Vectorial */
+        .model-canvas { background-color: #040814; border: 1px solid #1e293b; border-radius: 0.5rem; height: 320px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; margin-top: 1rem; padding: 1rem; }
+        .map-svg-container { display: flex; justify-content: center; align-items: center; height: 220px; width: 100%; }
+        .map-caption { background: rgba(2, 6, 23, 0.9); width: 100%; padding: 0.5rem; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; margin: 0 -1rem -1rem -1rem; padding-left: 1rem; padding-right: 1rem; }
 
-        /* Selectores de Modelos */
-        .model-selector { display: flex; gap: 0.3rem; background: rgba(15, 23, 42, 0.95); padding: 0.4rem; border-radius: 0.375rem; border: 1px solid #1e293b; position: absolute; top: 10px; left: 10px; z-index: 20; backdrop-blur: sm; }
+        .model-selector { display: flex; gap: 0.3rem; background: rgba(15, 23, 42, 0.9); padding: 0.4rem; border-radius: 0.375rem; border: 1px solid #1e293b; width: fit-content; }
         .model-tab { background: transparent; border: none; color: #94a3b8; padding: 0.4rem 0.8rem; font-size: 0.7rem; font-weight: bold; border-radius: 0.25rem; cursor: pointer; }
         .model-tab.active { background: #06b6d4; color: #020617; }
 
-        /* Tarjetas de Módulo (Cards) */
-        .card { background-color: #0f172a; border: 1px solid #1e293b; padding: 1.25rem; border-radius: 0.5rem; transition: 0.3s; }
+        .card { background-color: #0f172a; border: 1px solid #1e293b; padding: 1.25rem; border-radius: 0.5rem; }
         .card-inner { background-color: #0f172a; border: 1px solid #1e293b; padding: 1.5rem; border-radius: 0.5rem; height: 100%; }
-        .card-interactive:hover { transform: translateY(-3px); border-color: #06b6d4; }
 
         .icon-box { width: 2.5rem; height: 2.5rem; border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 1rem; }
         .ib-c { background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; }
@@ -65,27 +54,21 @@
         .ib-t { background-color: rgba(234, 179, 8, 0.1); color: #eab308; }
         .ib-k { background-color: rgba(168, 85, 247, 0.1); color: #a855f7; }
 
-        /* Listas e hilos técnicos */
         .list-tech { list-style: none; }
         .list-tech li { margin-bottom: 0.5rem; font-size: 0.8rem; color: #cbd5e1; display: flex; align-items: center; gap: 0.5rem; }
 
-        /* Tablas Técnicas de Modelos */
         .tech-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; text-align: left; margin-top: 0.5rem; }
         .tech-table th { background-color: #0f172a; color: #06b6d4; padding: 0.5rem; border-bottom: 1px solid #1e293b; }
         .tech-table td { padding: 0.5rem; border-bottom: 1px solid #1e293b; color: #94a3b8; }
 
-        /* Controles de Navegación del Slider */
-        .footer-controls { background-color: #0f172a; border-top: 1px solid #1e293b; padding: 0.75rem 2.5rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+        .footer-controls { background-color: #0f172a; border-top: 1px solid #1e293b; padding: 0.75rem 2.5rem; display: flex; justify-content: space-between; align-items: center; height: 60px; }
         .btn-nav { background-color: #1e293b; color: white; padding: 0.4rem 1rem; border: 1px solid #334155; border-radius: 0.25rem; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
-        .btn-nav:hover { background-color: #334155; }
         .btn-nav-next { background-color: #0891b2; border-color: #06b6d4; }
-        .btn-nav-next:hover { background-color: #06b6d4; }
-        .footer-info-text { font-size: 0.75rem; color: #475569; }
     </style>
 </head>
 <body>
 
-    <!-- LÁMINA 1: HERO & MODELOS METEOROLÓGICOS DEL PERÚ -->
+    <!-- LÁMINA 1: MODELOS VECTORIALES -->
     <div id="slide1" class="slide bg-gradient-hero active">
         <div class="header">
             <span class="tag-presentation">PROTOTIPO PORTAL WEB // LÁMINA 1</span>
@@ -95,37 +78,35 @@
             <div>
                 <span class="badge-alert">OPERATIVO EN VIVO</span>
                 <h2 class="title-huge">Visualizador Integrado de <br><span class="text-gradient">Modelos Numéricos</span></h2>
-                <p class="text-lead">Acceso integrado a las salidas del modelo de alta resolución WRF (1km) y ETA optimizados para la compleja topografía del territorio peruano.</p>
+                <p class="text-lead">Modelos dinámicos del SENAMHI integrados directamente para el análisis predictivo nacional.</p>
                 
                 <div class="model-canvas">
                     <div class="model-selector">
                         <button id="tab-wrf" class="model-tab active" onclick="changeMap('wrf')">WRF 1KM (Perú)</button>
                         <button id="tab-eta" class="model-tab" onclick="changeMap('eta')">ETA 32KM</button>
                         <button id="tab-goes" class="model-tab" onclick="changeMap('goes')">GOES-16 Satellite</button>
-                        <button id="tab-pisco" class="model-tab" onclick="changeMap('pisco')">PISCO Gridded</button>
                     </div>
 
-                    <!-- MAPA GRÁFICO VECTORIAL PURO (SVG) - SE COMPORTA COMO IMAGEN AUTÓNOMA -->
-                    <div class="map-vector-container">
-                        <svg id="svg-map" width="200" height="260" viewBox="0 0 200 260" style="transition: 0.5s;">
-                            <!-- Silueta base simulada del mapa del Perú -->
-                            <path id="peru-shape" d="M80,20 C100,10 120,30 110,50 C100,60 130,80 140,100 C150,120 170,140 160,160 C150,180 130,190 120,210 C110,230 90,250 80,240 C70,230 65,200 60,180 C55,160 40,140 50,120 C60,100 45,80 55,60 C65,40 70,30 80,20 Z" fill="#0f2d5a" stroke="#22d3ee" stroke-width="2"/>
-                            <!-- Capas meteorológicas que cambian de color -->
-                            <circle id="layer-1" cx="95" cy="80" r="35" fill="rgba(34, 211, 238, 0.4)" filter="blur(5px)" style="mix-blend-mode: screen;"/>
-                            <circle id="layer-2" cx="120" cy="130" r="25" fill="rgba(59, 130, 246, 0.5)" filter="blur(3px)" style="mix-blend-mode: screen;"/>
-                            <circle id="layer-3" cx="80" cy="160" r="20" fill="rgba(239, 68, 68, 0.3)" filter="blur(4px)" style="mix-blend-mode: screen;"/>
+                    <!-- MAPAS VECTORIALES NATIVOS EN SVG (NUNCA FALLAN) -->
+                    <div class="map-svg-container">
+                        <svg id="vector-map" viewBox="0 0 200 300" width="150" height="220" style="transition: 0.3s;">
+                            <!-- Silueta base simulada del Perú -->
+                            <path d="M40,40 Q60,30 90,60 T130,120 T150,180 T160,240 L140,280 L110,260 L90,200 L60,150 L30,100 Z" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5"/>
+                            <!-- Capas cambiantes dinámicas -->
+                            <circle id="layer-1" cx="90" cy="120" r="35" fill="rgba(34, 211, 238, 0.4)" filter="blur(5px)"/>
+                            <circle id="layer-2" cx="120" cy="170" r="25" fill="rgba(59, 130, 246, 0.5)"/>
+                            <circle id="layer-3" cx="70" cy="90" r="15" fill="rgba(239, 68, 68, 0.3)"/>
                         </svg>
                     </div>
                     
                     <div class="map-caption">
-                        <span id="map-title" style="font-size: 0.75rem; color: #06b6d4; font-weight: bold;">[ CAPA MODELO: Pronóstico Numérico WRF - Precipitación ]</span>
+                        <span id="map-title" style="font-size: 0.75rem; color: #06b6d4; font-weight: bold;">[ CAPA MODELO: Pronóstico Numérico WRF - Precipitación Acumulada ]</span>
                         <span style="font-size: 0.65rem; color: #64748b;">Refresco: Dirección de Meteorología</span>
                     </div>
                 </div>
             </div>
             <div class="card-inner">
                 <h3 style="color: #22d3ee; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;">Fichas de Productos del SENAMHI</h3>
-                
                 <table class="tech-table">
                     <thead>
                         <tr>
@@ -135,29 +116,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><b>WRF Operativo</b></td>
-                            <td>1 km / 25 km</td>
-                            <td>Temperatura a 2m, Líneas de Corriente, Viento a 10m</td>
-                        </tr>
-                        <tr>
-                            <td><b>ETA SENAMHI</b></td>
-                            <td>32 x 32 km</td>
-                            <td>Vorticidad potencial, Omega, Humedad Relativa</td>
-                        </tr>
-                        <tr>
-                            <td><b>GOES-16 RealTime</b></td>
-                            <td>Tiempo Real</td>
-                            <td>Sistemas Convectivos, Vapor de Agua, Tope de Nubes</td>
-                        </tr>
-                        <tr>
-                            <td><b>Grilla PISCO</b></td>
-                            <td>Histórico / Diario</td>
-                            <td>Precipitación y Temperaturas Extremas del Aire</td>
-                        </tr>
+                        <tr><td><b>WRF Operativo</b></td><td>1 km / 25 km</td><td>Temperatura a 2m, Líneas de Corriente</td></tr>
+                        <tr><td><b>ETA SENAMHI</b></td><td>32 x 32 km</td><td>Vorticidad potencial, Humedad Relativa</td></tr>
+                        <tr><td><b>GOES-16 RealTime</b></td><td>Tiempo Real</td><td>Sistemas Convectivos, Tope de Nubes</td></tr>
+                        <tr><td><b>Grilla PISCO</b></td><td>Histórico / Diario</td><td>Precipitación y Temperaturas del Aire</td></tr>
                     </tbody>
                 </table>
-
                 <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem;">
                     <button class="btn-primary" style="font-size: 0.75rem; padding: 0.5rem 1rem;">Correr Predicción</button>
                     <button class="btn-secondary" style="font-size: 0.75rem; padding: 0.5rem 1rem;">Descargar NetCDF</button>
@@ -166,42 +130,22 @@
         </div>
     </div>
 
-    <!-- LÁMINA 2: MAPA DE PERFILES -->
+    <!-- LÁMINA 2: PERFILES -->
     <div id="slide2" class="slide bg-dark-slate">
         <div class="header">
             <span class="tag-presentation">ARQUITECTURA DE INFORMACIÓN // LÁMINA 2</span>
             <h1 class="header-title">Estructura Modular del Observatorio</h1>
         </div>
         <div class="grid-5">
-            <div class="card card-interactive">
-                <div class="icon-box ib-c">🧑‍💻</div>
-                <h3 style="font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem;">Ciudadano</h3>
-                <p style="font-size: 0.7rem; color: #94a3b8; line-height: 1.4;">Pronósticos inmediatos basados en estaciones automáticas verificadas a nivel nacional.</p>
-            </div>
-            <div class="card card-interactive">
-                <div class="icon-box ib-g">🛡️</div>
-                <h3 style="font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem;">Gestión de Riesgo</h3>
-                <p style="font-size: 0.7rem; color: #94a3b8; line-height: 1.4;">Fusión de alertas de caudales PHISIS y avisos meteorológicos de corto plazo COEN/INDECI.</p>
-            </div>
-            <div class="card card-interactive">
-                <div class="icon-box ib-a">🚜</div>
-                <h3 style="font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem;">Agricultura</h3>
-                <p style="font-size: 0.7rem; color: #94a3b8; line-height: 1.4;">Modelamiento de anomalías térmicas para la prevención activa de heladas y friajes.</p>
-            </div>
-            <div class="card card-interactive">
-                <div class="icon-box ib-t">✈️</div>
-                <h3 style="font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem;">Turismo</h3>
-                <p style="font-size: 0.7rem; color: #94a3b8; line-height: 1.4;">Monitoreo atmosférico especializado en corredores viales y patrimonio natural regional.</p>
-            </div>
-            <div class="card card-interactive">
-                <div class="icon-box ib-k">🎨</div>
-                <h3 style="font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem;">SENAMHI Kids</h3>
-                <p style="font-size: 0.7rem; color: #94a3b8; line-height: 1.4;">Difusión y transferencia científica escolar mediante dinámicas y juegos interactivos.</p>
-            </div>
+            <div class="card"><div class="icon-box ib-c">🧑‍💻</div><h3 style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.5rem;">Ciudadano</h3><p style="font-size: 0.7rem; color: #94a3b8;">Uso general, reportes climáticos y radiación UV por distritos.</p></div>
+            <div class="card"><div class="icon-box ib-g">🛡️</div><h3 style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.5rem;">Gestión de Riesgo</h3><p style="font-size: 0.7rem; color: #94a3b8;">Sistemas críticos para INDECI, COEN y caudales de ríos.</p></div>
+            <div class="card"><div class="icon-box ib-a">🚜</div><h3 style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.5rem;">Agricultura</h3><p style="font-size: 0.7rem; color: #94a3b8;">Alertas agroclimáticas frente a heladas, friajes y sequías.</p></div>
+            <div class="card"><div class="icon-box ib-t">✈️</div><h3 style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.5rem;">Turismo</h3><p style="font-size: 0.7rem; color: #94a3b8;">Corredores turísticos, playas y avisos meteorológicos viales.</p></div>
+            <div class="card"><div class="icon-box ib-k">🎨</div><h3 style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.5rem;">SENAMHI Kids</h3><p style="font-size: 0.7rem; color: #94a3b8;">Transferencia científica escolar a través de juegos interactivos.</p></div>
         </div>
     </div>
 
-    <!-- LÁMINA 3: PANELES CIUDADANO & GESTIÓN DE RIESGO -->
+    <!-- LÁMINA 3: DETALLE 1 -->
     <div id="slide3" class="slide bg-dark-pure">
         <div class="header">
             <span class="tag-presentation">DETALLE UX // LÁMINA 3</span>
@@ -210,26 +154,24 @@
         <div class="grid-2">
             <div class="card-inner">
                 <h3 style="color: #3b82f6; font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">🧑‍💻 Interfaz Ciudadana</h3>
-                <p style="color: #94a3b8; font-size: 0.75rem; margin-bottom: 1rem;">Integración con la API de la Red Nacional de Estaciones Hidrometeorológicas del SENAMHI.</p>
-                <ul class="list-tech">
-                    <li>📍 Geolocalización y enlace a estaciones Convencionales / Automáticas.</li>
-                    <li>☀️ Indexación automática del Semáforo de Radiación Solar Ultravioleta (UV).</li>
-                    <li>📊 Monitoreo de calidad del aire en tiempo real para Lima Metropolitana y Callao.</li>
+                <ul class="list-tech" style="margin-top: 1rem;">
+                    <li>📍 Geolocalización automática a la estación de monitoreo más cercana.</li>
+                    <li>☀️ Indexación en tiempo real del Semáforo de Radiación Solar Ultravioleta (UV).</li>
+                    <li>📊 Monitoreo continuo de la calidad del aire para entornos urbanos masivos.</li>
                 </ul>
             </div>
             <div class="card-inner">
                 <h3 style="color: #ef4444; font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">🛡️ Alertas para Gestión de Riesgos</h3>
-                <p style="color: #94a3b8; font-size: 0.75rem; margin-bottom: 1rem;">Herramientas para tomadores de decisiones de INDECI, COEN y Gobiernos Regionales.</p>
-                <ul class="list-tech">
-                    <li>🌊 Conexión con Servidor Hidrológico (PHISIS) para umbrales de desborde de ríos.</li>
-                    <li>⚠️ Avisos de Niveles de Alerta (Amarillo, Naranja, Rojo) automatizados por distrito.</li>
-                    <li>🌋 Modelamiento numérico complementario de Dispersión de Ceniza Volcánica e Incendios.</li>
+                <ul class="list-tech" style="margin-top: 1rem;">
+                    <li>🌊 Interconexión directa con el Sistema Hidrológico PHISIS para ríos nacionales.</li>
+                    <li>⚠️ Avisos automatizados por niveles meteorológicos (Amarillo, Naranja, Rojo).</li>
+                    <li>🌋 Modelamiento numérico complementario para dispersión de cenizas y focos de calor.</li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <!-- LÁMINA 4: PANELES AGRICULTURA & TURISMO -->
+    <!-- LÁMINA 4: DETALLE 2 -->
     <div id="slide4" class="slide bg-dark-slate">
         <div class="header">
             <span class="tag-presentation">DETALLE UX // LÁMINA 4</span>
@@ -238,51 +180,49 @@
         <div class="grid-2">
             <div class="card">
                 <h3 style="color: #22c55e; font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">🚜 Inteligencia Agroclimática</h3>
-                <p style="color: #94a3b8; font-size: 0.75rem; margin-bottom: 1rem;">Monitoreo y herramientas preventivas para la seguridad alimentaria en el campo peruano.</p>
-                <ul class="list-tech">
-                    <li>❄️ Predicción de Heladas Agrometeorológicas (Sierras) y Friajes (Selva).</li>
-                    <li>🌾 Acceso directo a Boletines Decadiarios y Mensuales sectorizados del SENAMHI.</li>
-                    <li>📱 Interoperabilidad nativa de datos con la aplicación móvil institucional.</li>
+                <ul class="list-tech" style="margin-top: 1rem;">
+                    <li>❄️ Predicción sistemática de Heladas Meteorológicas en sierra y Friajes en selva.</li>
+                    <li>🌾 Acceso directo a repositorios de Boletines Decadiarios sectorizados por cultivos.</li>
+                    <li>📱 Interoperabilidad nativa con el aplicativo móvil del agro del SENAMHI.</li>
                 </ul>
             </div>
             <div class="card">
                 <h3 style="color: #eab308; font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">✈️ Corredor Turístico Seguro</h3>
-                <p style="color: #94a3b8; font-size: 0.75rem; margin-bottom: 1rem;">Información en tiempo real orientada a la protección de operadores y visitantes extranjeros.</p>
-                <ul class="list-tech">
-                    <li>⛰️ Pronósticos puntuales para Machu Picchu, Huaraz y playas del litoral.</li>
-                    <li>💨 Alertas de ráfagas intensas de viento, niebla densa y oleajes anómalos costeros.</li>
-                    <li>🗺️ Capas GIS con rutas viales sugeridas según la criticidad meteorológica actual.</li>
+                <ul class="list-tech" style="margin-top: 1rem;">
+                    <li>⛰️ Monitoreo continuo y pronóstico de microclimas para Machu Picchu y Huaraz.</li>
+                    <li>💨 Alertas de ráfagas intensas de viento, oleajes costeros y niebla densa en carreteras.</li>
+                    <li>🗺️ Capas GIS integradas con rutas recomendadas según criticidad atmosférica.</li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <!-- LÁMINA 5: MÓDULO SENAMHI KIDs -->
+    <!-- LÁMINA 5: KIDS -->
     <div id="slide5" class="slide bg-dark-pure">
         <div class="header">
             <span class="tag-presentation">MÓDULO EDUCATIVO // LÁMINA 5</span>
             <h1 class="header-title">SENAMHI Kids: Kit del Tiempo y del Clima</h1>
         </div>
         <div class="grid-3">
-            <div class="card" style="background-color: rgba(168, 85, 247, 0.05); border-color: rgba(168, 85, 247, 0.2); text-align: center; padding: 1.5rem;">
+            <div class="card" style="text-align: center;">
                 <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎮</div>
-                <h4 style="font-size: 1.1rem; font-weight: bold; color: #c084fc; margin-bottom: 0.5rem;">Gamificación Educativa</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Juegos ligeros interactivos en HTML5 como "Cazadores de Nubes" diseñados para escolares.</p>
+                <h4 style="color: #c084fc; font-weight: bold; margin-bottom: 0.5rem;">Gamificación</h4>
+                <p style="font-size: 0.75rem; color: #94a3b8;">Juegos en HTML5 como "Cazadores de Nubes" o "Estación Divertida".</p>
             </div>
-            <div class="card" style="background-color: rgba(236, 72, 153, 0.05); border-color: rgba(236, 72, 153, 0.2); text-align: center; padding: 1.5rem;">
+            <div class="card" style="text-align: center;">
                 <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📚</div>
-                <h4 style="font-size: 1.1rem; font-weight: bold; color: #f472b6; margin-bottom: 0.5rem;">Animaciones Científicas</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Explicaciones dinámicas interactivas sobre el ciclo del agua andino y el Fenómeno El Niño (ENSO).</p>
+                <h4 style="color: #f472b6; font-weight: bold; margin-bottom: 0.5rem;">Animaciones</h4>
+                <p style="font-size: 0.75rem; color: #94a3b8;">Explicaciones lúdicas sobre el Fenómeno El Niño y cambio climático peruano.</p>
             </div>
-            <div class="card" style="background-color: rgba(99, 102, 241, 0.05); border-color: rgba(99, 102, 241, 0.2); text-align: center; padding: 1.5rem;">
+            <div class="card" style="text-align: center;">
                 <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🏫</div>
-                <h4 style="font-size: 1.1rem; font-weight: bold; color: #818cf8; margin-bottom: 0.5rem;">Kits PDF para Docentes</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Materiales interactivos listos para imprimir orientados a profesores de zonas rurales.</p>
+                <h4 style="color: #818cf8; font-weight: bold; margin-bottom: 0.5rem;">Kits PDF</h4>
+                <p style="font-size: 0.75rem; color: #94a3b8;">Experimentos meteorológicos caseros listos para imprimir por profesores rurales.</p>
             </div>
         </div>
     </div>
 
-    <!-- LÁMINA 6: CAPACIDAD BACKEND -->
+    <!-- LÁMINA 6: INFRAESTRUCTURA -->
     <div id="slide6" class="slide bg-dark-slate">
         <div class="header">
             <span class="tag-presentation">INFRAESTRUCTURA DE DATOS // LÁMINA 6</span>
@@ -290,21 +230,21 @@
         </div>
         <div class="grid-3">
             <div class="card">
-                <h4 style="font-size: 1rem; font-weight: bold; color: #22d3ee; margin-bottom: 0.5rem;">Catálogo Open Data</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Infraestructura de Datos Espaciales para la descarga libre y automatizada de series históricas meteorológicas.</p>
+                <h4 style="color: #22d3ee; font-weight: bold; margin-bottom: 0.5rem;">Catálogo Open Data (NUNA)</h4>
+                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Repositorio para descarga automática de series históricas validadas por control de calidad científico.</p>
             </div>
             <div class="card">
-                <h4 style="font-size: 1rem; font-weight: bold; color: #22c55e; margin-bottom: 0.5rem;">Ecosistema de Radares</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Procesamiento e integración de los nuevos radares de Piura e Ica para potenciar la confiabilidad de los pronósticos de muy corto plazo.</p>
+                <h4 style="color: #22c55e; font-weight: bold; margin-bottom: 0.5rem;">Red de Radares Estatales</h4>
+                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Procesamiento unificado de los nuevos radares de Piura e Ica para potenciar alertas inmediatas (Nowcasting).</p>
             </div>
             <div class="card">
-                <h4 style="font-size: 1rem; font-weight: bold; color: #f59e0b; margin-bottom: 0.5rem;">Plataforma TENDHIS</h4>
-                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Mapeo nacional de las tendencias de precipitación y temperaturas extremas para formuladores de proyectos estatales.</p>
+                <h4 style="color: #f59e0b; font-weight: bold; margin-bottom: 0.5rem;">Plataforma TENDHIS</h4>
+                <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.5;">Análisis de tendencias de temperaturas extremas y precipitación para proyectos de inversión pública.</p>
             </div>
         </div>
     </div>
 
-    <!-- CONTROLES COMUNES INFERIORES -->
+    <!-- CONTROLES GLOBALES DE NAVEGACIÓN -->
     <footer class="footer-controls">
         <span class="footer-info-text">SENAMHI Observatorio Prototipo Core v4.0 // Webmaster</span>
         <div style="display: flex; gap: 0.5rem;">
@@ -314,51 +254,57 @@
     </footer>
 
     <script>
+        // CONTROL INDEPENDIENTE DE NAVEGACIÓN ENTRE LÁMINAS (SLIDER)
         let currentSlide = 1;
         const totalSlides = 6;
 
-        // BANCO DE CONFIGURACIONES VECTORIALES PARA CADA MODELO
-        const mapConfigs = {
-            wrf: {
-                fill: "#0f2d5a",
-                c1: "rgba(34, 211, 238, 0.6)",   // Cian (Lluvias moderadas)
-                c2: "rgba(59, 130, 246, 0.5)",   // Azul
-                c3: "rgba(30, 58, 138, 0.4)",
-                title: '[ CAPA MODELO: Pronóstico Numérico WRF - Precipitación Acumulada 24h ]'
-            },
-            eta: {
-                fill: "#1e1b4b",
-                c1: "rgba(234, 179, 8, 0.5)",    // Amarillo (Vientos/Presión)
-                c2: "rgba(249, 115, 22, 0.4)",   // Naranja
-                c3: "rgba(30, 41, 59, 0.2)",
-                title: '[ CAPA MODELO: Salida Numérica Regional ETA - Líneas de Corriente y Presión ]'
-            },
-            goes: {
-                fill: "#111827",
-                c1: "rgba(168, 85, 247, 0.5)",   // Púrpura (Tope de nubes infrarrojo)
-                c2: "rgba(236, 72, 153, 0.4)",   // Rosa
-                c3: "rgba(239, 68, 68, 0.5)",    // Alerta convectiva roja
-                title: '[ IMAGEN SATELITAL: GOES-16 Canal Infrarrojo - Temperatura de Tope de Nubes ]'
-            },
-            pisco: {
-                fill: "#064e3b",
-                c1: "rgba(34, 197, 94, 0.6)",    // Verde (Grilla de datos agro/clima)
-                c2: "rgba(22, 163, 74, 0.4)",
-                c3: "rgba(250, 204, 21, 0.3)",
-                title: '[ GRILLA CLIMÁTICA: Producto PISCO - Reanálisis Histórico Met/Hid ]'
-            }
-        };
+        function showSlide(n) {
+            document.getElementById(`slide${currentSlide}`).classList.remove('active');
+            currentSlide = n;
+            if(currentSlide > totalSlides) currentSlide = 1;
+            if(currentSlide < 1) currentSlide = totalSlides;
+            document.getElementById(`slide${currentSlide}`).classList.add('active');
+        }
 
+        function nextSlide() { showSlide(currentSlide + 1); }
+        function prevSlide() { showSlide(currentSlide - 1); }
+
+        // Soportar flechas físicas del teclado para la exposición
+        window.addEventListener('keydown', (e) => {
+            if(e.key === 'ArrowRight') nextSlide();
+            if(e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // CONTROL DEL SELECTOR DE MODELOS (LÁMINA 1)
         function changeMap(modelKey) {
-            const config = mapConfigs[modelKey];
+            const mapTitle = document.getElementById('map-title');
+            const layer1 = document.getElementById('layer-1');
+            const layer2 = document.getElementById('layer-2');
+            const layer3 = document.getElementById('layer-3');
+
+            // Quitar clase activa a todas las pestañas y ponérsela a la seleccionada
+            document.querySelectorAll('.model-tab').forEach(tab => tab.classList.remove('active'));
             
-            // Cambiar dinámicamente las propiedades del mapa vectorial interactivo
-            document.getElementById('peru-shape').setAttribute('fill', config.fill);
-            document.getElementById('layer-1').setAttribute('fill', config.c1);
-            document.getElementById('layer-2').setAttribute('fill', config.c2);
-            document.getElementById('layer-3').setAttribute('fill', config.c3);
-            
-            document.getElementById('map-title').innerText = config.title;
-            
-            // Alternar las pestañas activas
-            document.querySelectorAll('.model-tab').forEach(tab
+            if (modelKey === 'wrf') {
+                document.getElementById('tab-wrf').classList.add('active');
+                mapTitle.innerText = "[ CAPA MODELO: Pronóstico Numérico WRF - Precipitación Acumulada ]";
+                layer1.setAttribute('fill', 'rgba(34, 211, 238, 0.6)');
+                layer2.setAttribute('fill', 'rgba(59, 130, 246, 0.4)');
+                layer3.setAttribute('fill', 'rgba(16, 185, 129, 0.2)');
+            } else if (modelKey === 'eta') {
+                document.getElementById('tab-eta').classList.add('active');
+                mapTitle.innerText = "[ CAPA MODELO: Salida Numérica Regional ETA - Líneas de Corriente ]";
+                layer1.setAttribute('fill', 'rgba(239, 68, 68, 0.5)');
+                layer2.setAttribute('fill', 'rgba(245, 158, 11, 0.4)');
+                layer3.setAttribute('fill', 'rgba(59, 130, 246, 0.3)');
+            } else if (modelKey === 'goes') {
+                document.getElementById('tab-goes').classList.add('active');
+                mapTitle.innerText = "[ IMAGEN SATELITAL: GOES-16 Canal Infrarrojo - Temperatura de Topes ]";
+                layer1.setAttribute('fill', 'rgba(168, 85, 247, 0.6)');
+                layer2.setAttribute('fill', 'rgba(236, 72, 153, 0.4)');
+                layer3.setAttribute('fill', 'rgba(2, 6, 23, 0.7)');
+            }
+        }
+    </script>
+</body>
+</html>
