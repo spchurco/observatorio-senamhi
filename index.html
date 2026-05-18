@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observatorio del Tiempo, Clima y Agua - SENAMHI</title>
+    <script src="https://tailwindcss.com"></script>
+    <style>
+        .slide { display: none; height: 100vh; }
+        .slide.active { display: flex; }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-sans overflow-hidden">
+
+    <!-- LÁMINA 1: HERO SECTION -->
+    <div id="slide1" class="slide active flex-col justify-between p-12 bg-gradient-to-br from-blue-900 via-slate-900 to-cyan-900">
+        <div class="flex justify-between items-center border-b border-cyan-500/30 pb-4">
+            <span class="text-cyan-400 font-bold tracking-widest text-sm">PROTOTIPO PORTAL WEB // LÁMINA 1</span>
+            <h1 class="text-xl font-bold text-white">OBSERVATORIO DEL TIEMPO, CLIMA Y AGUA</h1>
+        </div>
+        <div class="grid grid-cols-2 gap-12 my-auto items-center">
+            <div>
+                <span class="bg-red-600 text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider animate-pulse">ALERTA VIGENTE</span>
+                <h2 class="text-5xl font-extrabold tracking-tight mt-4 leading-tight">Plataforma Nacional <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Tiempo, Clima y Agua</span></h2>
+                <p class="text-slate-400 mt-6 text-lg">Un entorno unificado, georreferenciado e interactivo diseñado para la toma de decisiones críticas y la resiliencia ciudadana.</p>
+                <div class="mt-8 flex gap-4">
+                    <button class="bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-bold px-6 py-3 rounded-lg shadow-lg shadow-cyan-500/20 transition">Ver Dashboard</button>
+                    <button class="border border-slate-700 hover:border-slate-500 bg-slate-800/50 px-6 py-3 rounded-lg transition">Documentación API</button>
+                </div>
+            </div>
+            <div class="bg-slate-800/50 border border-slate-700 p-8 rounded-2xl shadow-2xl relative overflow-hidden backdrop-blur-md">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl"></div>
+                <h3 class="text-sm font-bold uppercase tracking-wider text-cyan-400 mb-4">Core de la Interfaz (UI)</h3>
+                <ul class="space-y-4 text-slate-300 text-sm">
+                    <li class="flex items-center gap-3">⚡ Mapas de calor dinámicos (isoyetas e isotermas en tiempo real).</li>
+                    <li class="flex items-center gap-3">⚡ Motor de búsqueda predictivo por Región/Provincia/Distrito.</li>
+                    <li class="flex items-center gap-3">⚡ Alertas críticas de respuesta rápida (Friaje, Heladas, El Niño).</li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center text-xs text-slate-500">SENAMHI © 2026 - Controla con Flechas Izq / Der</div>
+    </div>
+
+    <!-- LÁMINA 2: PERFILES DE USUARIO -->
+    <div id="slide2" class="slide flex-col justify-between p-12 bg-slate-950">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-cyan-400 font-bold tracking-widest text-sm">ARQUITECTURA DE INFORMACIÓN // LÁMINA 2</span>
+            <h1 class="text-xl font-bold text-slate-400">Segmentación por Perfiles</h1>
+        </div>
+        <div class="my-auto">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-4xl font-extrabold mb-4">5 Viñetas Basadas en Roles de Usuario</h2>
+                <p class="text-slate-400">Redirección inteligente en un solo clic desde la pantalla principal para maximizar la accesibilidad de la información.</p>
+            </div>
+            <div class="grid grid-cols-5 gap-6">
+                <!-- Tarjeta 1 -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-blue-500 transition group cursor-pointer">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-400 font-bold text-xl mb-4 group-hover:bg-blue-500 group-hover:text-white transition">🧑‍💻</div>
+                    <h3 class="font-bold text-lg mb-2">Ciudadano</h3>
+                    <p class="text-xs text-slate-400">Uso diario, pronósticos locales rápidos, radiación UV y calidad de aire.</p>
+                </div>
+                <!-- Tarjeta 2 -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-red-500 transition group cursor-pointer">
+                    <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center text-red-400 font-bold text-xl mb-4 group-hover:bg-red-500 group-hover:text-white transition">🛡️</div>
+                    <h3 class="font-bold text-lg mb-2">Gestión de Riesgo</h3>
+                    <p class="text-xs text-slate-400">Datos técnicos para INDECI, COEN, caudales críticos y activación de quebradas.</p>
+                </div>
+                <!-- Tarjeta 3 -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-green-500 transition group cursor-pointer">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center text-green-400 font-bold text-xl mb-4 group-hover:bg-green-500 group-hover:text-white transition">🚜</div>
+                    <h3 class="font-bold text-lg mb-2">Agricultura</h3>
+                    <p class="text-xs text-slate-400">Alertas agroclimáticas, monitoreo de heladas/friajes e índices de agua.</p>
+                </div>
+                <!-- Tarjeta 4 -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-yellow-500 transition group cursor-pointer">
+                    <div class="w-12 h-12 bg-yellow-500/10 rounded-lg flex items-center justify-center text-yellow-400 font-bold text-xl mb-4 group-hover:bg-yellow-500 group-hover:text-white transition">✈️</div>
+                    <h3 class="font-bold text-lg mb-2">Turismo</h3>
+                    <p class="text-xs text-slate-400">Pronósticos en tiempo real para rutas seguras y patrimonio natural nacional.</p>
+                </div>
+                <!-- Tarjeta 5 -->
+                <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-purple-500 transition group cursor-pointer">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center text-purple-400 font-bold text-xl mb-4 group-hover:bg-purple-500 group-hover:text-white transition">🎨</div>
+                    <h3 class="font-bold text-lg mb-2">SENAMHI Kids</h3>
+                    <p class="text-xs text-slate-400">Módulo lúdico para niños con juegos, experimentos y difusión escolar.</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-between text-xs text-slate-600">
+            <span>Diseño modular responsivo</span>
+            <span>Uso de Tailwind CSS para layouts limpios</span>
+        </div>
+    </div>
+
+    <!-- LÁMINAS 3 A 6 CON EL MISMO FORMATO SIMPLIFICADO -->
+    <div id="slide3" class="slide flex-col justify-between p-12 bg-slate-900">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-cyan-400 font-bold tracking-widest text-sm">DETALLE UX // LÁMINA 3</span>
+            <h1 class="text-xl font-bold text-white">Módulos: Ciudadano & Gestión de Riesgo</h1>
+        </div>
+        <div class="grid grid-cols-2 gap-8 my-auto">
+            <div class="bg-slate-950 p-8 rounded-xl border border-slate-800">
+                <h3 class="text-2xl font-bold text-blue-400 mb-4">🧑‍💻 Dashboard Ciudadano</h3>
+                <p class="text-slate-400 mb-4 text-sm">Prioridad absoluta en rendimiento móvil (WPO) y consumo mínimo de datos.</p>
+                <div class="bg-slate-900 p-4 rounded-lg space-y-2 text-xs">
+                    <div>📍 Geolocalización automática de la estación más cercana.</div>
+                    <div>☀️ Semáforo de Radiación UV indexado en tiempo real.</div>
+                    <div>📅 Widget interactivo de pronóstico extendido a 5 días.</div>
+                </div>
+            </div>
+            <div class="bg-slate-950 p-8 rounded-xl border border-slate-800">
+                <h3 class="text-2xl font-bold text-red-400 mb-4">🛡️ Panel de Gestión de Riesgo</h3>
+                <p class="text-slate-400 mb-4 text-sm">Integración crítica de datos hidrometeorológicos complejos orientada a INDECI y COEN.</p>
+                <div class="bg-slate-900 p-4 rounded-lg space-y-2 text-xs">
+                    <div>🌊 Monitoreo de caudales en tiempo real (Conexión con sistema PHISIS).</div>
+                    <div>⚠️ Alertas tempranas automatizadas ante activación de quebradas.</div>
+                    <div>📊 Descarga inmediata de reportes en formatos GeoJSON y CSV.</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-xs text-slate-500 text-center">SENAMHI UX Core</div>
+    </div>
+
+    <div id="slide4" class="slide flex-col justify-between p-12 bg-slate-950">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-cyan-400 font-bold tracking-widest text-sm">DETALLE UX // LÁMINA 4</span>
+            <h1 class="text-xl font-bold text-white">Módulos: Agricultura & Turismo</h1>
+        </div>
+        <div class="grid grid-cols-2 gap-8 my-auto">
+            <div class="bg-slate-900 p-8 rounded-xl border border-slate-800">
+                <h3 class="text-2xl font-bold text-green-400 mb-4">🚜 Inteligencia Agroclimática</h3>
+                <p class="text-slate-400 mb-4 text-sm">Para tomadores de decisiones del sector agrario e institucionales rurales.</p>
+                <div class="bg-slate-950 p-4 rounded-lg space-y-2 text-xs">
+                    <div>❄️ Mapas predictivos para prevención de heladas y friajes.</div>
+                    <div>🌾 Boletines agrometeorológicos sectorizados descargables.</div>
+                    <div>📱 Sincronización transparente con la app "SENAMHI Perú Móvil".</div>
+                </div>
+            </div>
+            <div class="bg-slate-900 p-8 rounded-xl border border-slate-800">
+                <h3 class="text-2xl font-bold text-yellow-400 mb-4">✈️ Corredor Turístico Seguro</h3>
+                <p class="text-slate-400 mb-4 text-sm">Enfoque centrado en la reactivación económica y seguridad de viajeros nacionales/extranjeros.</p>
+                <div class="bg-slate-950 p-4 rounded-lg space-y-2 text-xs">
+                    <div>⛰️ Pronósticos especializados en tiempo real para Machu Picchu, Cordillera Blanca, etc.</div>
+                    <div>💨 Alertas instantáneas por fuertes ráfagas de viento y oleajes anómalos.</div>
+                    <div>🗺️ Mapas de rutas interactivas según condiciones climáticas.</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-xs text-slate-500 text-center">SENAMHI UX Core</div>
+    </div>
+
+    <div id="slide5" class="slide flex-col justify-between p-12 bg-slate-900">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-cyan-400 font-bold tracking-widest text-sm">MÓDULO EDUCATIVO // LÁMINA 5</span>
+            <h1 class="text-xl font-bold text-white">SENAMHI Kids: El Kit del Tiempo</h1>
+        </div>
+        <div class="my-auto max-w-4xl mx-auto grid grid-cols-3 gap-6">
+            <div class="bg-purple-900/30 border border-purple-500/30 p-6 rounded-xl text-center">
+                <div class="text-4xl mb-3">🎮</div>
+                <h4 class="font-bold text-lg text-purple-300 mb-2">Gamificación</h4>
+                <p class="text-xs text-slate-400">Juegos interactivos basados en la web como "Viste al Meteorólogo según el Clima" o "Cazadores de Nubes".</p>
+            </div>
+            <div class="bg-pink-900/30 border border-pink-500/30 p-6 rounded-xl text-center">
+                <div class="text-4xl mb-3">📚</div>
+                <h4 class="font-bold text-lg text-pink-300 mb-2">Difusión Científica</h4>
+                <p class="text-xs text-slate-400">Animaciones interactivas ligeras que explican visualmente el ciclo del agua y el fenómeno de El Niño.</p>
+            </div>
+            <div class="bg-indigo-900/30 border border-indigo-500/30 p-6 rounded-xl text-center">
+                <div class="text-4xl mb-3">🏫</div>
+                <h4 class="font-bold text-lg text-indigo-300 mb-2">Descargables Escolares</h4>
+                <p class="text-xs text-slate-400">Kits en formato PDF listos para impresión para que docentes rurales y urbanos realicen dinámicas.</p>
+            </div>
+        </div>
+        <div class="text-center text-xs text-purple-400">Propuesta de interfaz amigable adaptada a la Ley de Protección al Menor en Internet</div>
+    </div>
+
+    <div id="slide6" class="slide flex-col justify-between p-12 bg-slate-950">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-cyan-400 font-bold tracking-widest text-sm">INFRAESTRUCTURA DE DATOS // LÁMINA 6</span>
+            <h1 class="text-xl font-bold text-white">Datos Abiertos y Escalabilidad</h1>
+        </div>
+        <div class="grid grid-cols-3 gap-8 my-auto items-stretch">
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 flex flex-col justify-between">
+                <div>
+                    <h4 class="font-bold text-cyan-400 mb-2">Imágenes Satelitales</h4>
+                    <p class="text-xs text-slate-400">Integración nativa con satélites meteorológicos que refrescan la información visual en el portal principal cada 10 minutos sin degradar el ancho de banda del servidor público.</p>
+                </div>
+            </div>
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 flex flex-col justify-between">
+                <div>
+                    <h4 class="font-bold text-green-400 mb-2">Open Data Catalog</h4>
+                    <p class="text-xs text-slate-400">Portal de descargas masivas con capas de datos históricos validados. Incluye autenticación integrada (Single Sign-On de Gob.pe) para control estadístico de usuarios de datos científicos.</p>
+                </div>
+            </div>
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 flex flex-col justify-between">
+                <div>
+                    <h4 class="font-bold text-amber-400 mb-2">Radares de Nueva Generación</h4>
+                    <p class="text-xs text-slate-400">Visualizaciones avanzadas e integración en tiempo real de los nuevos radares meteorológicos (Piura e Ica) para un pronóstico de corto plazo ultra preciso (Nowcasting).</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-between items-center text-xs text-slate-600">
+            <span>Fin de la Presentación Técnica</span>
+            <span class="text-cyan-500 font-bold">Webmaster SENAMHI Portal 2026</span>
+        </div>
+    </div>
+
+    <!-- CONTROLES NATIVOS -->
+    <div class="fixed bottom-4 right-4 flex gap-2 z-50">
+        <button onclick="prevSlide()" class="bg-slate-800 hover:bg-slate-700 text-white p-2 px-4 rounded-lg border border-slate-700 font-bold"><- Ant</button>
+        <button onclick="nextSlide()" class="bg-cyan-600 hover:bg-cyan-500 text-white p-2 px-4 rounded-lg border border-cyan-500 font-bold">Sig -></button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 6;
+        function showSlide(n) {
+            document.getElementById(`slide${currentSlide}`).classList.remove('active');
+            currentSlide = n;
+            if(currentSlide > totalSlides) currentSlide = 1;
+            if(currentSlide < 1) currentSlide = totalSlides;
+            document.getElementById(`slide${currentSlide}`).classList.add('active');
+        }
+        function nextSlide() { showSlide(currentSlide + 1); }
+        function prevSlide() { showSlide(currentSlide - 1); }
+        window.addEventListener('keydown', (e) => {
+            if(e.key === 'ArrowRight') nextSlide();
+            if(e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
