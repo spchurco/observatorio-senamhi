@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Observatorio del Tiempo, Clima y Agua - SENAMHI</title>
     <style>
-        /* CORE CSS NATIVO BLINDADO */
+        /* CORE CSS NATIVO DE ALTA FIEDLIDAD */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #020617; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
         
@@ -20,7 +20,7 @@
         .header-title { font-size: 1.15rem; font-weight: 700; color: #e2e8f0; }
         .tag-presentation { color: #22d3ee; font-weight: bold; letter-spacing: 0.1em; font-size: 0.8rem; text-transform: uppercase; }
         
-        .grid-dashboard { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; margin: auto 0; }
+        .grid-dashboard { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 2rem; margin: auto 0; }
         .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin: auto 0; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: auto 0; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: auto 0; }
@@ -35,12 +35,12 @@
         .btn-primary { background-color: #06b6d4; color: #020617; font-weight: bold; padding: 0.75rem 1.5rem; border: none; border-radius: 0.375rem; cursor: pointer; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2); }
         .btn-secondary { background-color: rgba(30, 41, 59, 0.5); color: #ffffff; border: 1px solid #334155; padding: 0.75rem 1.5rem; border-radius: 0.375rem; }
         
-        /* Contenedor del Mapa Vectorial */
-        .model-canvas { background-color: #040814; border: 1px solid #1e293b; border-radius: 0.5rem; height: 320px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; margin-top: 1rem; padding: 1rem; }
-        .map-svg-container { display: flex; justify-content: center; align-items: center; height: 220px; width: 100%; }
-        .map-caption { background: rgba(2, 6, 23, 0.9); width: 100%; padding: 0.5rem; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; margin: 0 -1rem -1rem -1rem; padding-left: 1rem; padding-right: 1rem; }
+        /* Contenedor Adaptativo de Iframe */
+        .model-canvas { background-color: #040814; border: 1px solid #1e293b; border-radius: 0.5rem; height: 360px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; margin-top: 1rem; }
+        .iframe-display { width: 100%; height: 290px; border: none; background-color: #040814; }
+        .map-caption { background: rgba(2, 6, 23, 0.95); width: 100%; padding: 0.5rem 1rem; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; z-index: 30; }
 
-        .model-selector { display: flex; gap: 0.3rem; background: rgba(15, 23, 42, 0.9); padding: 0.4rem; border-radius: 0.375rem; border: 1px solid #1e293b; width: fit-content; }
+        .model-selector { display: flex; gap: 0.3rem; background: rgba(15, 23, 42, 0.95); padding: 0.4rem; border-bottom: 1px solid #1e293b; width: 100%; z-index: 20; backdrop-blur: sm; }
         .model-tab { background: transparent; border: none; color: #94a3b8; padding: 0.4rem 0.8rem; font-size: 0.7rem; font-weight: bold; border-radius: 0.25rem; cursor: pointer; }
         .model-tab.active { background: #06b6d4; color: #020617; }
 
@@ -68,7 +68,7 @@
 </head>
 <body>
 
-    <!-- LÁMINA 1: MODELOS VECTORIALES -->
+    <!-- LÁMINA 1: VISUALIZADOR CON INTERFAZ DE IFRAMES CORPORATIVOS -->
     <div id="slide1" class="slide bg-gradient-hero active">
         <div class="header">
             <span class="tag-presentation">PROTOTIPO PORTAL WEB // LÁMINA 1</span>
@@ -76,32 +76,23 @@
         </div>
         <div class="grid-dashboard">
             <div>
-                <span class="badge-alert">OPERATIVO EN VIVO</span>
-                <h2 class="title-huge">Visualizador Integrado de <br><span class="text-gradient">Modelos Numéricos</span></h2>
-                <p class="text-lead">Modelos dinámicos del SENAMHI integrados directamente para el análisis predictivo nacional.</p>
+                <span class="badge-alert">SISTEMA OPERATIVO</span>
+                <h2 class="title-huge">Visualizador Integrado de <br><span class="text-gradient">Modelos e Información</span></h2>
+                <p class="text-lead">Consolidación de capas dinámicas del SENAMHI incrustadas para una auditoría técnica en tiempo real.</p>
                 
                 <div class="model-canvas">
                     <div class="model-selector">
-                        <button id="tab-wrf" class="model-tab active" onclick="changeMap('wrf')">WRF 1KM (Perú)</button>
-                        <button id="tab-eta" class="model-tab" onclick="changeMap('eta')">ETA 32KM</button>
-                        <button id="tab-goes" class="model-tab" onclick="changeMap('goes')">GOES-16 Satellite</button>
+                        <button id="tab-satelite" class="model-tab active" onclick="changeIframe('satelite')">Imágenes de Satélite</button>
+                        <button id="tab-pronostico" class="model-tab" onclick="changeIframe('pronostico')">Condiciones Climáticas actuales</button>
+                        <button id="tab-radiacion" class="model-tab" onclick="changeIframe('radiacion')">Índice Radiación UV</button>
                     </div>
 
-                    <!-- MAPAS VECTORIALES NATIVOS EN SVG (NUNCA FALLAN) -->
-                    <div class="map-svg-container">
-                        <svg id="vector-map" viewBox="0 0 200 300" width="150" height="220" style="transition: 0.3s;">
-                            <!-- Silueta base simulada del Perú -->
-                            <path d="M40,40 Q60,30 90,60 T130,120 T150,180 T160,240 L140,280 L110,260 L90,200 L60,150 L30,100 Z" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5"/>
-                            <!-- Capas cambiantes dinámicas -->
-                            <circle id="layer-1" cx="90" cy="120" r="35" fill="rgba(34, 211, 238, 0.4)" filter="blur(5px)"/>
-                            <circle id="layer-2" cx="120" cy="170" r="25" fill="rgba(59, 130, 246, 0.5)"/>
-                            <circle id="layer-3" cx="70" cy="90" r="15" fill="rgba(239, 68, 68, 0.3)"/>
-                        </svg>
-                    </div>
+                    <!-- IFRAME INCRUSTADO QUE CONSULTA LOS RECURSOS OFICIALES -->
+                    <iframe id="senamhi-iframe" class="iframe-display" src="" title="Visor Técnico SENAMHI"></iframe>
                     
                     <div class="map-caption">
-                        <span id="map-title" style="font-size: 0.75rem; color: #06b6d4; font-weight: bold;">[ CAPA MODELO: Pronóstico Numérico WRF - Precipitación Acumulada ]</span>
-                        <span style="font-size: 0.65rem; color: #64748b;">Refresco: Dirección de Meteorología</span>
+                        <span id="map-title" style="font-size: 0.75rem; color: #06b6d4; font-weight: bold;">[ PORTAL INTERNO: Satélite e Imágenes de Radar en Tiempo Real ]</span>
+                        <span style="font-size: 0.65rem; color: #64748b;">Módulo: Infraestructura de Datos Espaciales</span>
                     </div>
                 </div>
             </div>
@@ -116,10 +107,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td><b>WRF Operativo</b></td><td>1 km / 25 km</td><td>Temperatura a 2m, Líneas de Corriente</td></tr>
-                        <tr><td><b>ETA SENAMHI</b></td><td>32 x 32 km</td><td>Vorticidad potencial, Humedad Relativa</td></tr>
-                        <tr><td><b>GOES-16 RealTime</b></td><td>Tiempo Real</td><td>Sistemas Convectivos, Tope de Nubes</td></tr>
-                        <tr><td><b>Grilla PISCO</b></td><td>Histórico / Diario</td><td>Precipitación y Temperaturas del Aire</td></tr>
+                        <tr><td><b>Satélite GOES-16</b></td><td>Tiempo Real</td><td>Sistemas Convectivos, Cobertura Nubosa</td></tr>
+                        <tr><td><b>Condiciones Actuales</b></td><td>Estaciones</td><td>Temperatura de Aire, Lluvia Acumulada</td></tr>
+                        <tr><td><b>Semáforo UV</b></td><td>Diario</td><td>Pronóstico de Radiación Solar por Región</td></tr>
+                        <tr><td><b>Modelamiento PISCO</b></td><td>Grilla 5km</td><td>Datos Históricos de Precipitación Validada</td></tr>
                     </tbody>
                 </table>
                 <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem;">
@@ -130,7 +121,7 @@
         </div>
     </div>
 
-    <!-- LÁMINA 2: PERFILES -->
+    <!-- LÁMINA 2: MAPA DE PERFILES -->
     <div id="slide2" class="slide bg-dark-slate">
         <div class="header">
             <span class="tag-presentation">ARQUITECTURA DE INFORMACIÓN // LÁMINA 2</span>
@@ -246,7 +237,7 @@
 
     <!-- CONTROLES GLOBALES DE NAVEGACIÓN -->
     <footer class="footer-controls">
-        <span class="footer-info-text">SENAMHI Observatorio Prototipo Core v4.0 // Webmaster</span>
+        <span class="footer-info-text">SENAMHI Observatorio Prototipo Core v5.0 // Webmaster</span>
         <div style="display: flex; gap: 0.5rem;">
             <button onclick="prevSlide()" class="btn-nav"><- Anterior</button>
             <button onclick="nextSlide()" class="btn-nav btn-nav-next">Siguiente -></button>
@@ -254,7 +245,7 @@
     </footer>
 
     <script>
-        // CONTROL INDEPENDIENTE DE NAVEGACIÓN ENTRE LÁMINAS (SLIDER)
+        // SLIDER DE NAVEGACIÓN ENTRE LÁMINAS
         let currentSlide = 1;
         const totalSlides = 6;
 
@@ -269,42 +260,46 @@
         function nextSlide() { showSlide(currentSlide + 1); }
         function prevSlide() { showSlide(currentSlide - 1); }
 
-        // Soportar flechas físicas del teclado para la exposición
         window.addEventListener('keydown', (e) => {
             if(e.key === 'ArrowRight') nextSlide();
             if(e.key === 'ArrowLeft') prevSlide();
         });
 
-        // CONTROL DEL SELECTOR DE MODELOS (LÁMINA 1)
-        function changeMap(modelKey) {
-            const mapTitle = document.getElementById('map-title');
-            const layer1 = document.getElementById('layer-1');
-            const layer2 = document.getElementById('layer-2');
-            const layer3 = document.getElementById('layer-3');
-
-            // Quitar clase activa a todas las pestañas y ponérsela a la seleccionada
-            document.querySelectorAll('.model-tab').forEach(tab => tab.classList.remove('active'));
-            
-            if (modelKey === 'wrf') {
-                document.getElementById('tab-wrf').classList.add('active');
-                mapTitle.innerText = "[ CAPA MODELO: Pronóstico Numérico WRF - Precipitación Acumulada ]";
-                layer1.setAttribute('fill', 'rgba(34, 211, 238, 0.6)');
-                layer2.setAttribute('fill', 'rgba(59, 130, 246, 0.4)');
-                layer3.setAttribute('fill', 'rgba(16, 185, 129, 0.2)');
-            } else if (modelKey === 'eta') {
-                document.getElementById('tab-eta').classList.add('active');
-                mapTitle.innerText = "[ CAPA MODELO: Salida Numérica Regional ETA - Líneas de Corriente ]";
-                layer1.setAttribute('fill', 'rgba(239, 68, 68, 0.5)');
-                layer2.setAttribute('fill', 'rgba(245, 158, 11, 0.4)');
-                layer3.setAttribute('fill', 'rgba(59, 130, 246, 0.3)');
-            } else if (modelKey === 'goes') {
-                document.getElementById('tab-goes').classList.add('active');
-                mapTitle.innerText = "[ IMAGEN SATELITAL: GOES-16 Canal Infrarrojo - Temperatura de Topes ]";
-                layer1.setAttribute('fill', 'rgba(168, 85, 247, 0.6)');
-                layer2.setAttribute('fill', 'rgba(236, 72, 153, 0.4)');
-                layer3.setAttribute('fill', 'rgba(2, 6, 23, 0.7)');
+        // ENRUTADOR DINÁMICO DE IFRAMES
+        const iframeUrls = {
+            satelite: {
+                url: 'https://senamhi.gob.pe',
+                title: '[ PORTAL INTERNO: Satélite e Imágenes de Radar en Tiempo Real ]'
+            },
+            pronostico: {
+                url: 'https://senamhi.gob.pe',
+                title: '[ MONITOREO NACIONAL: Condiciones Climáticas de Estaciones Oficiales ]'
+            },
+            radiacion: {
+                url: 'https://senamhi.gob.pe',
+                title: '[ CAPA DE PREVENCIÓN: Pronóstico del Índice de Radiación Solar Ultravioleta (UV) ]'
             }
+        };
+
+        function changeIframe(productKey) {
+            const iframe = document.getElementById('senamhi-iframe');
+            const mapTitle = document.getElementById('map-title');
+
+            // Actualizar la ruta y el encabezado
+            iframe.src = iframeUrls[productKey].url;
+            mapTitle.innerText = iframeUrls[productKey].title;
+            
+            // Administrar pestañas activas
+            document.querySelectorAll('.model-tab').forEach(tab => tab.classList.remove('active'));
+            if (productKey === 'satelite') document.getElementById('tab-satelite').classList.add('active');
+            if (productKey === 'pronostico') document.getElementById('tab-pronostico').classList.add('active');
+            if (productKey === 'radiacion') document.getElementById('tab-radiacion').classList.add('active');
         }
+
+        // Carga automática al iniciar la página
+        window.onload = function() {
+            changeIframe('satelite');
+        };
     </script>
 </body>
 </html>
