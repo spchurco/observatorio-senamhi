@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Observatorio del Tiempo, Clima y Agua - SENAMHI</title>
     <style>
-        /* CORE CSS NATIVO INTERNO */
+        /* CORE CSS EMOCIONAL Y CORPORATIVO BLINDADO */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #020617; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
         
@@ -14,8 +14,7 @@
         
         .bg-gradient-hero { background: linear-gradient(135deg, #1e3a8a, #0b1329, #164e63); }
         .bg-dark-slate { background-color: #0b1329; }
-        .bg-dark-pure { background-color: #020617; }
-
+        
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(6, 182, 212, 0.2); padding-bottom: 1rem; }
         .header-title { font-size: 1.15rem; font-weight: 700; color: #e2e8f0; }
         .tag-presentation { color: #22d3ee; font-weight: bold; letter-spacing: 0.1em; font-size: 0.8rem; text-transform: uppercase; }
@@ -32,21 +31,33 @@
         .badge-alert { background-color: #dc2626; color: white; font-size: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 9999px; font-weight: bold; display: inline-block; margin-bottom: 1rem; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
 
-        .btn-primary { background-color: #06b6d4; color: #020617; font-weight: bold; padding: 0.75rem 1.5rem; border: none; border-radius: 0.375rem; cursor: pointer; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2); }
+        .btn-primary { background-color: #06b6d4; color: #020617; font-weight: bold; padding: 0.75rem 1.5rem; border: none; border-radius: 0.375rem; cursor: pointer; }
         .btn-secondary { background-color: rgba(30, 41, 59, 0.5); color: #ffffff; border: 1px solid #334155; padding: 0.75rem 1.5rem; border-radius: 0.375rem; }
         
-        /* Contenedor del Visor Vectorial */
-        .model-canvas { background-color: #040815; border: 1px solid #1e293b; border-radius: 0.5rem; height: 340px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; margin-top: 1rem; }
-        .canvas-workspace { flex-grow: 1; display: flex; justify-content: center; align-items: center; padding: 1rem; }
+        /* Contenedor del Visor Vectorial de Productos */
+        .model-canvas { background-color: #050b18; border: 1px solid #1e293b; border-radius: 0.5rem; height: 340px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; margin-top: 1rem; }
+        .canvas-workspace { flex-grow: 1; display: flex; justify-content: center; align-items: center; padding: 1rem; position: relative; }
         .map-caption { background: rgba(2, 6, 23, 0.95); width: 100%; padding: 0.6rem 1rem; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; z-index: 30; }
 
         .model-selector { display: flex; gap: 0.3rem; background: rgba(15, 23, 42, 0.95); padding: 0.4rem; border-bottom: 1px solid #1e293b; width: 100%; z-index: 20; }
         .model-tab { background: transparent; border: none; color: #94a3b8; padding: 0.4rem 0.8rem; font-size: 0.7rem; font-weight: bold; border-radius: 0.25rem; cursor: pointer; }
         .model-tab.active { background: #06b6d4; color: #020617; }
 
-        .card { background-color: #0f172a; border: 1px solid #1e293b; padding: 1.5rem; border-radius: 0.5rem; display: flex; flex-direction: column; justify-content: space-between; }
+        /* REPRODUCCIÓN DE IMÁGENES POR CSS PURO (NUNCA FALLAN) */
+        .visual-satelite { width: 140px; height: 140px; background: radial-gradient(circle, #a855f7 0%, #db2777 40%, #030712 80%); border-radius: 50%; filter: blur(10px); animation: pulse 4s infinite; }
+        .visual-rain { width: 160px; height: 160px; background: conic-gradient(from 180deg, #06b6d4, #3b82f6, #050b18); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; filter: blur(4px); }
+        
+        /* Simulación de imágenes en Secciones de la Lámina 2 */
+        .card { background-color: #0f172a; border: 1px solid #1e293b; padding: 0; border-radius: 0.5rem; overflow: hidden; display: flex; flex-direction: column; }
+        .card-banner { height: 80px; width: 100%; }
+        .cb-1 { background: linear-gradient(to bottom right, #3b82f6, #020617); }
+        .cb-2 { background: linear-gradient(to bottom right, #ef4444, #020617); }
+        .cb-3 { background: linear-gradient(to bottom right, #22c55e, #020617); }
+        .cb-4 { background: linear-gradient(to bottom right, #eab308, #020617); }
+        .cb-5 { background: linear-gradient(to bottom right, #a855f7, #020617); }
+        .card-body { padding: 1rem; flex-grow: 1; }
+        
         .card-inner { background-color: #0f172a; border: 1px solid #1e293b; padding: 1.5rem; border-radius: 0.5rem; height: 100%; }
-
         .icon-box { width: 2.2rem; height: 2.2rem; border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 0.75rem; }
         .ib-c { background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; }
         .ib-g { background-color: rgba(239, 68, 68, 0.1); color: #ef4444; }
@@ -62,13 +73,11 @@
         .tech-table td { padding: 0.5rem; border-bottom: 1px solid #1e293b; color: #94a3b8; }
 
         .footer-controls { background-color: #0f172a; border-top: 1px solid #1e293b; padding: 0.75rem 2.5rem; display: flex; justify-content: space-between; align-items: center; height: 60px; }
-        .btn-nav { background-color: #1e293b; color: white; padding: 0.4rem 1rem; border: 1px solid #334155; border-radius: 0.25rem; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
-        .btn-nav-next { background-color: #0891b2; border-color: #06b6d4; }
     </style>
 </head>
 <body>
 
-    <!-- LÁMINA 1: VISUALIZADOR EMBEDDED GENERADO POR SOFTWARE NATIVO -->
+    <!-- LÁMINA 1: VISUALIZADOR INDEPENDIENTE COMPLETO -->
     <div id="slide1" class="slide bg-gradient-hero active">
         <div class="header">
             <span class="tag-presentation">PROTOTIPO PORTAL WEB // LÁMINA 1</span>
@@ -78,7 +87,7 @@
             <div>
                 <span class="badge-alert">SISTEMA OPERATIVO</span>
                 <h2 class="title-huge">Visualizador Integrado de <br><span class="text-gradient">Modelos e Información</span></h2>
-                <p class="text-lead">Consolidación de capas dinámicas y productos satelitales abiertos generados por vectores nativos en tiempo real.</p>
+                <p class="text-lead">Consolidación de capas generadas por vectores nativos autónomos en tiempo real.</p>
                 
                 <div class="model-canvas">
                     <div class="model-selector">
@@ -87,14 +96,14 @@
                         <button id="tab-radiacion" class="model-tab" onclick="updateWorkspace('radiacion')">Índice de Radiación UV</button>
                     </div>
 
-                    <!-- ESPACIO VECTORIAL INTERACTIVO RE-DISEÑADO -->
+                    <!-- ZONA DE RENDERIZADO VECTORIAL CONTROLADA -->
                     <div class="canvas-workspace" id="workspace-content">
-                        <!-- Renderizado automático por JS sin llamadas de red externas -->
+                        <!-- Se inyecta al inicio por JS -->
                     </div>
                     
                     <div class="map-caption">
-                        <span id="map-title" style="font-size: 0.75rem; color: #06b6d4; font-weight: bold;">[ CARGANDO RECURSO INTELIGENTE ]</span>
-                        <span style="font-size: 0.65rem; color: #64748b;">Módulo: Infraestructura de Datos Espaciales</span>
+                        <span id="map-title" style="font-size: 0.75rem; color: #06b6d4; font-weight: bold;">[ IMAGEN SATELITAL: GOES-16 Canal Infrarrojo ]</span>
+                        <span style="font-size: 0.65rem; color: #64748b;">Módulo: Infraestructura GIS</span>
                     </div>
                 </div>
             </div>
@@ -123,7 +132,7 @@
         </div>
     </div>
 
-    <!-- LÁMINA 2: ESTRUCTURA DE PERFILES SEGURA CON DISEÑO DE ALTO IMPACTO -->
+    <!-- LÁMINA 2: ESTRUCTURA DE PERFILES -->
     <div id="slide2" class="slide bg-dark-slate">
         <div class="header">
             <span class="tag-presentation">ARQUITECTURA DE INFORMACIÓN // LÁMINA 2</span>
@@ -131,49 +140,29 @@
         </div>
         <div class="grid-5">
             <div class="card">
-                <div>
-                    <div class="icon-box ib-c">🧑‍💻</div>
-                    <h3 style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.5rem;">Ciudadano</h3>
-                    <p style="font-size: 0.7rem; color: #94a3b8; line-height: 1.4;">Acceso rápido, libre de fricciones. Pronósticos locales, semáforo UV y calidad de aire distrital.</p>
-                </div>
-                <span style="font-size: 0.65rem; color: #3b82f6; font-weight: bold; margin-top: 1rem;">MODULO ABIERTO</span>
+                <div class="card-banner cb-1"></div>
+                <div class="card-body"><div class="icon-box ib-c">🧑‍💻</div><h3 style="font-size: 0.85rem; font-weight: bold; margin-bottom: 0.3rem;">Ciudadano</h3><p style="font-size: 0.65rem; color: #94a3b8;">Reportes urbanos rápidos de variables.</p></div>
             </div>
             <div class="card">
-                <div>
-                    <div class="icon-box ib-g">🛡️</div>
-                    <h3 style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.5rem;">Gestión de Riesgo</h3>
-                    <p style="font-size: 0.7rem; color: #94a3b8; line-height: 1.4;">Fusión de datos de caudales del sistema PHISIS y alertas inmediatas para INDECI y COEN.</p>
-                </div>
-                <span style="font-size: 0.65rem; color: #ef4444; font-weight: bold; margin-top: 1rem;">ALERTAS CRÍTICAS</span>
+                <div class="card-banner cb-2"></div>
+                <div class="card-body"><div class="icon-box ib-g">🛡️</div><h3 style="font-size: 0.85rem; font-weight: bold; margin-bottom: 0.3rem;">Gestión de Riesgo</h3><p style="font-size: 0.65rem; color: #94a3b8;">Alertas críticas COEN e INDECI.</p></div>
             </div>
             <div class="card">
-                <div>
-                    <div class="icon-box ib-a">🚜</div>
-                    <h3 style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.5rem;">Agricultura</h3>
-                    <p style="font-size: 0.7rem; color: #94a3b8; line-height: 1.4;">Monitoreo de anomalías de temperatura para mitigación de heladas y friajes en cultivos.</p>
-                </div>
-                <span style="font-size: 0.65rem; color: #22c55e; font-weight: bold; margin-top: 1rem;">PLANIFICACIÓN AGRO</span>
+                <div class="card-banner cb-3"></div>
+                <div class="card-body"><div class="icon-box ib-a">🚜</div><h3 style="font-size: 0.85rem; font-weight: bold; margin-bottom: 0.3rem;">Agricultura</h3><p style="font-size: 0.65rem; color: #94a3b8;">Previsión sistemática de heladas.</p></div>
             </div>
             <div class="card">
-                <div>
-                    <div class="icon-box ib-t">✈️</div>
-                    <h3 style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.5rem;">Turismo</h3>
-                    <p style="font-size: 0.7rem; color: #94a3b8; line-height: 1.4;">Estado del tiempo en corredores viales, playas y atractivos arqueológicos principales.</p>
-                </div>
-                <span style="font-size: 0.65rem; color: #eab308; font-weight: bold; margin-top: 1rem;">RUTAS SEGURAS</span>
+                <div class="card-banner cb-4"></div>
+                <div class="card-body"><div class="icon-box ib-t">✈️</div><h3 style="font-size: 0.85rem; font-weight: bold; margin-bottom: 0.3rem;">Turismo</h3><p style="font-size: 0.65rem; color: #94a3b8;">Monitoreo ambiental de rutas viales.</p></div>
             </div>
             <div class="card">
-                <div>
-                    <div class="icon-box ib-k">🎨</div>
-                    <h3 style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.5rem;">SENAMHI Kids</h3>
-                    <p style="font-size: 0.7rem; color: #94a3b8; line-height: 1.4;">Módulos gamificados con experimentos interactivos sobre el ciclo hidrológico andino.</p>
-                </div>
-                <span style="font-size: 0.65rem; color: #a855f7; font-weight: bold; margin-top: 1rem;">TRANSFERENCIA</span>
+                <div class="card-banner cb-5"></div>
+                <div class="card-body"><div class="icon-box ib-k">🎨</div><h3 style="font-size: 0.85rem; font-weight: bold; margin-bottom: 0.3rem;">SENAMHI Kids</h3><p style="font-size: 0.65rem; color: #94a3b8;">Juegos y difusión escolar científica.</p></div>
             </div>
         </div>
     </div>
 
-    <!-- LÁMINA 3: DETALLE 1 -->
+    <!-- LÁMINA 3: PANELES 1 -->
     <div id="slide3" class="slide bg-dark-pure">
         <div class="header">
             <span class="tag-presentation">DETALLE UX // LÁMINA 3</span>
@@ -199,7 +188,7 @@
         </div>
     </div>
 
-    <!-- LÁMINA 4: DETALLE 2 -->
+    <!-- LÁMINA 4: PANELES 2 -->
     <div id="slide4" class="slide bg-dark-slate">
         <div class="header">
             <span class="tag-presentation">DETALLE UX // LÁMINA 4</span>
@@ -272,26 +261,31 @@
         </div>
     </div>
 
-    <!-- CONTROLES GLOBALES DE NAVEGACIÓN -->
+    <!-- NAVEGACIÓN COMPLETA -->
     <footer class="footer-controls">
-        <span class="footer-info-text">SENAMHI Observatorio Prototipo Core v6.0 // Webmaster</span>
+        <span style="font-size: 0.75rem; color: #475569;">SENAMHI Observatorio Prototipo Core v6.0 // Webmaster</span>
         <div style="display: flex; gap: 0.5rem;">
-            <button onclick="prevSlide()" class="btn-nav"><- Anterior</button>
-            <button onclick="nextSlide()" class="btn-nav btn-nav-next">Siguiente -></button>
+            <button onclick="prevSlide()" style="background-color: #1e293b; color: white; padding: 0.4rem 1rem; border: 1px solid #334155; border-radius: 0.25rem; font-weight: bold; cursor: pointer; font-size: 0.8rem;"><- Anterior</button>
+            <button onclick="nextSlide()" style="background-color: #0891b2; color: white; padding: 0.4rem 1rem; border: 1px solid #06b6d4; border-radius: 0.25rem; font-weight: bold; cursor: pointer; font-size: 0.8rem;">Siguiente -></button>
         </div>
     </footer>
 
     <script>
-        // MÓDULO SLIDER
+        // SCRIPT BLINDADO DE CONTROL DE SLIDER NATIVO
         let currentSlide = 1;
         const totalSlides = 6;
 
         function showSlide(n) {
-            document.getElementById(`slide${currentSlide}`).classList.remove('active');
+            // Ocultar todas las láminas primero para evitar fallos
+            for(let i=1; i<=totalSlides; i++) {
+                document.getElementById('slide'+i).style.display = 'none';
+            }
             currentSlide = n;
             if(currentSlide > totalSlides) currentSlide = 1;
             if(currentSlide < 1) currentSlide = totalSlides;
-            document.getElementById(`slide${currentSlide}`).classList.add('active');
+            
+            // Mostrar la lámina activa de forma forzada por estilos directos
+            document.getElementById('slide'+currentSlide).style.display = 'flex';
         }
 
         function nextSlide() { showSlide(currentSlide + 1); }
@@ -302,7 +296,7 @@
             if(e.key === 'ArrowLeft') prevSlide();
         });
 
-        // MANEJADOR VECTORIAL NATIVO DE ALTA FIDELIDAD SIN DEPENDENCIAS DE RED
+        // CONTROL INTEGRADO DE LOS MAPAS VECTORIALES
         function updateWorkspace(productKey) {
             const workspace = document.getElementById('workspace-content');
             const mapTitle = document.getElementById('map-title');
@@ -311,57 +305,30 @@
 
             if (productKey === 'satelite') {
                 document.getElementById('tab-satelite').classList.add('active');
-                mapTitle.innerText = "[ IMAGEN SATELITAL: Sistema GOES-16 Canal Infrarrojo - Concentración Nubosa Andina ]";
-                workspace.innerHTML = `
-                    <svg viewBox="0 0 500 240" width="100%" height="100%">
-                        <rect width="500" height="240" fill="#040815" rx="4"/>
-                        <circle cx="250" cy="120" r="90" fill="none" stroke="#1e3a8a" stroke-width="1" stroke-dasharray="4"/>
-                        <path d="M120,40 Q250,10 380,80 T450,220" fill="none" stroke="rgba(6, 182, 212, 0.4)" stroke-width="1.5"/>
-                        <!-- Masas Térmicas Infrarojas Complejas -->
-                        <circle cx="240" cy="110" r="45" fill="rgba(147, 51, 234, 0.35)" filter="blur(14px)"/>
-                        <circle cx="260" cy="130" r="30" fill="rgba(219, 39, 119, 0.45)" filter="blur(8px)"/>
-                        <circle cx="220" cy="90" r="20" fill="rgba(6, 182, 212, 0.3)" filter="blur(10px)"/>
-                        <text x="20" y="25" fill="#38bdf8" font-size="10" font-weight="bold" letter-spacing="1">MONITOREO DE COBERTURA NUBOSA GOES-16</text>
-                    </svg>
-                `;
+                mapTitle.innerText = "[ IMAGEN SATELITAL: Sistema GOES-16 Canal Infrarrojo - Concentración Nubosa ]";
+                workspace.innerHTML = '<div class="visual-satelite"></div>';
             } else if (productKey === 'pronostico') {
                 document.getElementById('tab-pronostico').classList.add('active');
-                mapTitle.innerText = "[ MAPA DE ESTACIONES: Datos de Lluvia Acumulada Nacional - últimas 24 Horas ]";
-                workspace.innerHTML = `
-                    <svg viewBox="0 0 500 240" width="100%" height="100%">
-                        <rect width="500" height="240" fill="#030712" rx="4"/>
-                        <!-- Histograma Técnico de Distribución de Lluvia de Estaciones Automáticas -->
-                        <text x="25" y="25" fill="#22c55e" font-size="10" font-weight="bold" letter-spacing="1">DISTRIBUCIÓN DE PRECIPITACIÓN ACUMULADA (mm)</text>
-                        
-                        <line x1="50" y1="40" x2="50" y2="200" stroke="#1e293b" stroke-width="2"/>
-                        <line x1="50" y1="200" x2="450" y2="200" stroke="#1e293b" stroke-width="2"/>
-                        
-                        <!-- Barras de Estaciones -->
-                        <rect x="80" y="120" width="35" height="80" fill="#0ea5e9" rx="2"/>
-                        <text x="85" y="110" fill="#94a3b8" font-size="9">45 mm</text>
-                        <text x="82" y="215" fill="#64748b" font-size="8">D.Z. Piura</text>
-
-                        <rect x="160" y="70" width="35" height="130" fill="#10b981" rx="2"/>
-                        <text x="162" y="60" fill="#94a3b8" font-size="9">110 mm</text>
-                        <text x="160" y="215" fill="#64748b" font-size="8">D.Z. Loreto</text>
-
-                        <rect x="240" y="150" width="35" height="50" fill="#f59e0b" rx="2"/>
-                        <text x="245" y="140" fill="#94a3b8" font-size="9">18 mm</text>
-                        <text x="242" y="215" fill="#64748b" font-size="8">D.Z. Cusco</text>
-
-                        <rect x="320" y="90" width="35" height="110" fill="#ec4899" rx="2"/>
-                        <text x="325" y="80" fill="#94a3b8" font-size="9">85 mm</text>
-                        <text x="315" y="215" fill="#64748b" font-size="8">D.Z. San Martín</text>
-                    </svg>
-                `;
+                mapTitle.innerText = "[ MAPA DE MODELO: Distribución de Lluvia Acumulada Nacional ]";
+                workspace.innerHTML = '<div class="visual-rain"></div>';
             } else if (productKey === 'radiacion') {
                 document.getElementById('tab-radiacion').classList.add('active');
-                mapTitle.innerText = "[ COMPONENTE AMBIENTAL: Índice de Radiación Solar Ultravioleta (UV) ]";
+                mapTitle.innerText = "[ COMPONENTE AMBIENTAL: Índice de Semáforo de Radiación UV ]";
                 workspace.innerHTML = `
-                    <svg viewBox="0 0 500 240" width="100%" height="100%">
-                        <rect width="500" height="240" fill="#040815" rx="4"/>
-                        <text x="25" y="25" fill="#eab308" font-size="10" font-weight="bold" letter-spacing="1">ALERTA SEMÁFORO UV POR DEPARTAMENTO</text>
-                        
-                        <text x="30" y="70" fill="#94a3b8" font-size="9.5">Arequipa (Extremadamente Alto)</text>
-                        <rect x="220" y="62" width="200" height="10" fill="#7c3aed" rx="2"/>
-                        <text x="430" y="71" fill="#7c3aed" font-size="9.5" font-weight="bold
+                    <div style="width:100%; padding: 1rem; font-size:0.8rem; line-height:1.8;">
+                        <div style="color:#7c3aed;"><b>Arequipa:</b> Extremadamente Alto (15+)</div>
+                        <div style="color:#dc2626;"><b>Junín:</b> Muy Alto (12)</div>
+                        <div style="color:#ea580c;"><b>Lima:</b> Alto (7)</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Carga inicial forzada
+        window.onload = function() {
+            showSlide(1);
+            updateWorkspace('satelite');
+        };
+    </script>
+</body>
+</html>
